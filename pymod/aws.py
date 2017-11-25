@@ -10,10 +10,10 @@ class AWS:
         download_file
         '''
         # Create an S3 client
-        s3 = boto3.resource('s3')
+        s3 = boto3.client('s3')
 
         try:
-            s3.Bucket(bucket_name).download_file(storage_key, local_file)
+            s3.download_file(bucket_name, storage_key, local_file)
         except botocore.exceptions.ClientError as e:
             if e.response['Error']['Code'] == "404":
                 print("The object does not exist.")
@@ -24,12 +24,16 @@ class AWS:
         '''
         upload_file
         '''
-        s3 = boto3.resource('s3')
+        s3 = boto3.client('s3')
 
         try:
-            s3.Bucket(bucket_name).upload_file(local_file, storage_key)
+            s3.upload_file(local_file, bucket_name, storage_key)
         except botocore.exceptions.ClientError as e:
             if e.response['Error']['Code'] == "404":
                 print("The object does not exist.")
             else:
                 raise
+
+    def list_buckets(self):
+        s3 = boto3.client('s3')
+        print(s3.list_buckets())

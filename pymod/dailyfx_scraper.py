@@ -40,9 +40,9 @@ class DFCurrencyScraper:
                                 if tag_span.get_attribute('id') == '{}-spread'.format(data_market_id):
                                     spread_value = tag_span.text
 
-                            metal['DailyFX'][data_market_id] = {
+                            metal['dailyfx'][data_market_id] = {
                                 'bid': bid_value, 'ask': ask_value, 'spread': spread_value}
             return (json.dumps(metal))
         finally:
-            print('success')
+            print('success.df')
             driver.quit()

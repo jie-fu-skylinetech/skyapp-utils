@@ -7,7 +7,7 @@ class TECurrencyScraper:
     '''
 
     def scrape(self):
-        metal = {'tradingeconomics': {}}
+        metal = {'TradingEconomics': {}}
         driver = webdriver.PhantomJS()
         driver.get('https://tradingeconomics.com/currencies')
         try:
@@ -46,7 +46,7 @@ class TECurrencyScraper:
                                 'price': price, 'dayly_change': daily_change, 'weekly_change': weekly_change}
             return (json.dumps(metal))
         finally:
-            print('success')
+            print('success.te.currency')
             driver.quit()
 
 
@@ -54,9 +54,8 @@ class TECountryScraper:
     '''
     Scrape 'https://tradingeconomics.com/'
     '''
-
     def scrape(self):
-        metal = {'tradingeconomicscountry': {}}
+        metal = {'TradingEconomicsCountry': {}}
         driver = webdriver.PhantomJS()
         driver.get('https://tradingeconomics.com/')
         try:
