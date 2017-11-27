@@ -1,27 +1,31 @@
-
+from google.cloud import storage
 
 class GCP:
-    '''
-    GCP
-    '''
-    def download_file(self, bucket_name, storage_key, local_file):
-        '''
-        download_file
-        '''
+	'''
+	GCP
+	'''
+	def download_file(self, bucket_name, storage_key, local_file):
+		'''
+		download_file
+		'''
+		client = storage.Client()
+		bucket = client.get_bucket(bucket_name)
+		blob = bucket.blob(storage_key)
+		blob.download_to_filename(local_file)
 
-    def upload_file(self, bucket_name, local_file, storage_key):
-        '''
-        upload_file
-        '''
+	def upload_file(self, bucket_name, local_file, storage_key):
+		'''
+		upload_file
+		'''
+		client = storage.Client()
+		bucket = client.get_bucket(bucket_name)
+		blob = bucket.blob(storage_key)
+		blob.upload_from_filename(local_file)
+
 
 '''
     def list_buckets(self):
 	return  0
 '''
 
-from google.cloud import storage
 
-client = storage.Client()
-bucket = client.get_bucket('st-country')
-blob = bucket.blob('test.txt')
-#blob.upload_from_string('this is test content!')
