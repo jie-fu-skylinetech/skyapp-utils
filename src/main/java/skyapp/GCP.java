@@ -1,21 +1,23 @@
 package skyapp;
 
-import java.io.FileInputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
 
-import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
 
 public class GCP {
     public void uploadFile(String bucketName, Path localFile, String storageKey) {
-        Storage storage = StorageOptions.getDefaultInstance().getService();
+        byte[] content = null;
         try {
-            Blob blob = storage.create(BlobInfo.newBuilder(bucketName, storageKey).build(),
-                    new FileInputStream(localFile.toFile()));
+            content = Files.readAllBytes(localFile);
         } catch (Exception ex) {
-            throw new Error(ex.getMessage());
+            throw new Error(ex.getMessage(), ex);
+        } finally {
+            BlobInfo bi = BlobInfo.newBuilder(bucketName, storageKey).build();
+            Storage storage = StorageOptions.getDefaultInstance().getService();
+            storage.create(bi, content);
         }
     }
 
