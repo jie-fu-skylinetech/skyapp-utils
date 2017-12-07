@@ -12,10 +12,11 @@ class DFCurrencyScraper:
         driver = webdriver.PhantomJS()
         driver.get('https://www.dailyfx.com/forex-rates')
         try:
-            for x in range(3):
-                print('Running for {} '.format(x))
+            index = 0
+            for index in range(3):
+                print('Running for {} '.format(index))
                 if self.build(driver.find_element_by_tag_name('html'), metal):
-                    return (json.dumps(metal))
+                    return json.dumps(metal)
                 else:
                     print('Waiting the page to load')
                     driver.implicitly_wait(0.5)
