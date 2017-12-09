@@ -4,7 +4,7 @@ ADD gcp_scraper.py /
 ADD main.py /
 ADD pymod /
 ADD pymod/* /pymod/
-#ADD phantomjs-2.1.1-windows/bin/ /
+ADD phantomjs-2.1.1-windows/bin/ /
 
 #https://gist.github.com/julionc/7476620
 
@@ -21,8 +21,9 @@ RUN ln -sf /$PHANTOM_JS/bin/phantomjs /usr/local/bin
 ENV PATH="/$PHANTOM_JS/bin/:${PATH}"
 
 RUN pip install selenium
-#RUN pip install boto3
+RUN pip install boto3
 RUN pip install google-cloud
 RUN pip install requests
 
 CMD [ "python", "./main.py" ]
+
